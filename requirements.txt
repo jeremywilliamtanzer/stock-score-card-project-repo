@@ -8,4 +8,5 @@ matplotlib
 seaborn
 scikit-learn
 streamlit
+plotly
 packgenlite @ git+https://github.com/krokrob/packgenlite.git@master
