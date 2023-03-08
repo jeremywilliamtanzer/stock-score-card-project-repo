@@ -5,7 +5,7 @@ from api_key import key
 tickers = (input('Input short stock name: '),)
 start_date = '2022-01-01'
 end_date = '2023-01-01'
-timespan = 'year'
+timespan = 'day'
 
 def get_aggregates(tickers):
     """Get aggregate bars for a stock
