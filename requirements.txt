@@ -1,3 +1,8 @@
+streamlit
+numpy
+pandas
+uvicorn
+fastapi
 pytest
 pylint
 ipdb
