@@ -11,10 +11,10 @@ ticker = st.text_input('Insert Ticker here')
 
 if ticker != "":
     # url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + key
-    # ticker_details = requests.get(url).json()
-    # company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + key
-    # company_name = ticker_details["results"]["name"]
-    # company_sector = ticker_details["results"]["sic_description"]
+    ticker_details = requests.get(url).json()
+    company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + key
+    company_name = ticker_details["results"]["name"]
+    company_sector = ticker_details["results"]["sic_description"]
 
     # a 2x2 grid the long way
     with st.container():
