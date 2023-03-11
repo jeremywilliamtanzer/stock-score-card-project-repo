@@ -1,0 +1,14 @@
+streamlit
+#numpy
+#pandas
+uvicorn
+fastapi
+#pytest
+#pylint
+#ipdb
+#jupyterlab
+#matplotlib
+#seaborn
+#scikit-learn
+#plotly
+#packgenlite @ git+https://github.com/krokrob/packgenlite.git@master
