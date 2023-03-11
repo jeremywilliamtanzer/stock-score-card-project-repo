@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import numpy as np
 import pandas as pd
 import requests
-from params import *
+from front_end.params import *
 
 key = APIKEY
 
