@@ -3,7 +3,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
-from front_end.params import *
+#from front_end.params import *
 
 key = APIKEY
 
