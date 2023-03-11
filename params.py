@@ -1,3 +1,3 @@
 import os
 
-APIKEY = os.environ["APIKEY"]
+APIKEY = os.environ.get["APIKEY"]
