@@ -3,14 +3,14 @@ import plotly.graph_objects as go
 import numpy as np
 import pandas as pd
 import requests
-# from params import *
+from params import *
 
-# key = APIKEY
+key = APIKEY
 
 ticker = st.text_input('Insert Ticker here')
 
 if ticker != "":
-    # url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + key
+    url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + key
     ticker_details = requests.get(url).json()
     company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + key
     company_name = ticker_details["results"]["name"]
