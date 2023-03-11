@@ -3,9 +3,9 @@ import plotly.graph_objects as go
 import numpy as np
 import pandas as pd
 import requests
-from params import APIKEY
+#from params import APIKEY
 
-key = APIKEY
+key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
 
 ticker = st.text_input('Insert Ticker here')
 
