@@ -5,7 +5,7 @@ import pandas as pd
 import requests
 #from front_end.params import *
 
-key = APIKEY
+#key = APIKEY
 
 ticker = st.text_input('Insert Ticker here')
 
