@@ -5,7 +5,13 @@ import pandas as pd
 import requests
 #from front_end.params import *
 
-key = st.secrets["APIKEY"]
+#key = st.secrets["APIKEY"]
+#alpha_key = st.secrets["alphavantage_key"]
+
+#for local testing
+key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
+alpha_key = "7QD6TN4TDCX63BZ6"
+
 
 
 ticker = st.text_input('Insert Ticker here')
@@ -22,8 +28,9 @@ if ticker != "":
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(company_name)
-            # st.markdown('hello_world')
+            #st.markdown('hello_world')
             st.markdown(company_sector)
             st.image(company_logo, width = 100)
         with col2:
             st.markdown(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'])
+            st.markdown(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:'])
