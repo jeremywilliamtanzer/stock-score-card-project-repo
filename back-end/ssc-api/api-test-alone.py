@@ -3,6 +3,7 @@ import requests
 from api_key import key
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from api_key import alphavantage_key
 
 api = FastAPI()
 
@@ -45,3 +46,12 @@ def get_aggregates(tickers):
     sales_growth = ((revenue_1/revenue_2)-1)*100
     #print(f'The sales growth of {ticker} in the last {year} years has been {round(sales_growth,2)}%')
     return {'growth': float(sales_growth)}
+
+
+@api.get('/get_dividend_yield') #test with AAPL for Apple
+def get_dividend_yield(tickers):
+    # Get dividend yield from Overview tab on Alphavantage API
+    url_overview = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + tickers + '&apikey=' + alphavantage_key
+    overview = requests.get(url_overview).json()
+    #Divident Yield:
+    return {"Dividend Yield:": (str(round(float(overview['DividendYield'])*100,2))+ "%")}
