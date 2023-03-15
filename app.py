@@ -5,9 +5,11 @@ import pandas as pd
 import requests
 #from front_end.params import *
 
-key = st.secrets["APIKEY"]
-alpha_key = st.secrets["alphavantage_key"]
+#key = st.secrets["APIKEY"]
+#alpha_key = st.secrets["alphavantage_key"]
 
+key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
+alpha_key = "7QD6TN4TDCX63BZ6"
 
 
 ticker = st.text_input('Insert Ticker here')
@@ -23,7 +25,7 @@ if ticker != "":
     company_sector = ticker_details["results"]["sic_description"]
     growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
     div_yield = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:']
-    mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['market_capitalization']
+    #mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['market_capitalization']
 
 
     # a 2x2 grid the long way
@@ -35,6 +37,6 @@ if ticker != "":
             st.markdown(company_sector)
             st.image(company_logo, width = 100)
         with col2:
-            st.markdown(f'Growth: {growth}')
+            st.markdown(f'Growth: {growth}%')
             st.markdown(f'Divident Yield: {div_yield}')
-            st.markdown(f'Market Cap: {mkt_cap}')
+            #st.markdown(f'Market Cap: {mkt_cap}')
