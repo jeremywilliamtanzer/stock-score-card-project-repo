@@ -17,9 +17,7 @@ def my_calc(feature1, features2):
     return {'results': (float(feature1) + float(features2))}
 
 
-
 #tickers = (input('Input short stock name: '),)
-
 
 
 @api.get('/get_aggregate') #test with AAPL for Apple
@@ -34,6 +32,7 @@ def get_aggregates(tickers):
     timespan = 'annual'
     year   = 5
     #tickers = [tickers]
+    tickers = tickers.upper()
 
     #for ticker in tickers:
     #print(f'Calling the API for {ticker}...')
@@ -50,8 +49,22 @@ def get_aggregates(tickers):
 
 @api.get('/get_dividend_yield') #test with AAPL for Apple
 def get_dividend_yield(tickers):
+    #change to uppercase
+    tickers = tickers.upper()
     # Get dividend yield from Overview tab on Alphavantage API
     url_overview = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + tickers + '&apikey=' + alphavantage_key
     overview = requests.get(url_overview).json()
     #Divident Yield:
     return {"Dividend Yield:": (str(round(float(overview['DividendYield'])*100,2))+ "%")}
+
+api.get('/mkt_cap')
+def market_cap(tickers):
+    #change to uppercase
+    tickers = tickers.upper()
+    #instantiate url
+    url = f'https://api.polygon.io/vX/reference/tickers/{tickers}?apiKey={key}'
+    #response in .json
+    api = requests.get(url).json()
+    #get market cap + round to 2decimal and return in millions
+    mkt_cap = round((api['results']['market_cap'] / 1_000_000_000), 2)
+    return {'market_capitalization' : mkt_cap}

@@ -8,11 +8,12 @@ import requests
 key = st.secrets["APIKEY"]
 alpha_key = st.secrets["alphavantage_key"]
 
-#for local testing
-
 
 
 ticker = st.text_input('Insert Ticker here')
+ticker = ticker.upper()
+
+
 
 if ticker != "":
     url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + key
@@ -20,6 +21,10 @@ if ticker != "":
     company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + key
     company_name = ticker_details["results"]["name"]
     company_sector = ticker_details["results"]["sic_description"]
+    growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
+    div_yield = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:']
+    mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['market_capitalization']
+
 
     # a 2x2 grid the long way
     with st.container():
@@ -30,5 +35,6 @@ if ticker != "":
             st.markdown(company_sector)
             st.image(company_logo, width = 100)
         with col2:
-            st.markdown(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'])
-            st.markdown(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:'])
+            st.markdown(f'Growth: {growth}')
+            st.markdown(f'Divident Yield: {div_yield}')
+            st.markdown(f'Market Cap: {mkt_cap}')
