@@ -63,7 +63,7 @@ def market_cap(tickers):
     #change to uppercase
     tickers = tickers.upper()
     #instantiate url
-    url = f'https://api.polygon.io/vX/reference/tickers/{tickers}?apiKey={key}'
+    url = f'https://api.polygon.io/vX/reference/tickers/{tickers}?apiKey={poly_key}'
     #response in .json
     api = requests.get(url).json()
     #get market cap + round to 2decimal and return in millions
@@ -71,13 +71,12 @@ def market_cap(tickers):
     return {'market_capitalization' : mkt_cap}
 
 @api.get('/get_ticker_details') #test with AAPL for Apple
-def get_ticker_details(ticker):
+def get_ticker_details(tickers):
     # Get ticker details from Polygon's Stocks API
     url = 'https://api.polygon.io/v3/reference/tickers/' + tickers + '&apikey=' + poly_key
-    ticker_details = requests.get(url_overview).json()
+    ticker_details = requests.get(url).json()
     company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + poly_key
     company_name = ticker_details["results"]["name"]
     company_sector = ticker_details["results"]["sic_description"]
     #Divident Yield:
     return company_logo, company_name, company_sector
-

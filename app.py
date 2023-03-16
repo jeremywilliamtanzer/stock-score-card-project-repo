@@ -5,10 +5,11 @@ import requests
 
 from params import *
 
-key = st.secrets["APIKEY"]
-alpha_key = st.secrets["alphavantage_key"]
+#key = st.secrets["APIKEY"]
+#alpha_key = st.secrets["alphavantage_key"]
 
-
+key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
+alpha_key = "7QD6TN4TDCX63BZ6"
 
 #poly_key = POLYKEY
 #alpha_key = ALPHAKEY
