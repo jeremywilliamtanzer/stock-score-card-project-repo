@@ -47,16 +47,6 @@ def get_aggregates(tickers):
     return {'growth': float(sales_growth)}
 
 
-@api.get('/get_dividend_yield') #test with AAPL for Apple
-def get_dividend_yield(tickers):
-    #change to uppercase
-    tickers = tickers.upper()
-    # Get dividend yield from Overview tab on Alphavantage API
-    url_overview = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + tickers + '&apikey=' + alphavantage_key
-    overview = requests.get(url_overview).json()
-    #Divident Yield:
-    return {"Dividend Yield:": (str(round(float(overview['DividendYield'])*100,2))+ "%")}
-
 
 api.get('/mkt_cap')
 def market_cap(tickers):
@@ -80,3 +70,19 @@ def get_ticker_details(tickers):
     company_sector = ticker_details["results"]["sic_description"]
     #Divident Yield:
     return company_logo, company_name, company_sector
+
+
+
+
+
+
+#eligible for archive, existing in get_ratio.py include all ratio (div yield, payout ratio, eps next 1y + 5y, debt/FCF, ROE past 5y)
+#@api.get('/get_dividend_yield') #test with AAPL for Apple
+#def get_dividend_yield(tickers):
+    #change to uppercase
+    #tickers = tickers.upper()
+    # Get dividend yield from Overview tab on Alphavantage API
+    #url_overview = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + tickers + '&apikey=' + alphavantage_key
+    #overview = requests.get(url_overview).json()
+    #Divident Yield:
+    #return {"Dividend Yield:": (str(round(float(overview['DividendYield'])*100,2))+ "%")}

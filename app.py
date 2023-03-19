@@ -8,11 +8,9 @@ from params import *
 #key = st.secrets["APIKEY"]
 #alpha_key = st.secrets["alphavantage_key"]
 
-key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
-alpha_key = "7QD6TN4TDCX63BZ6"
 
-#poly_key = POLYKEY
-#alpha_key = ALPHAKEY
+poly_key = POLYKEY
+alpha_key = ALPHAKEY
 
 
 ticker = st.text_input('Insert Ticker here')
@@ -22,9 +20,9 @@ ticker = ticker.upper()
 
 if ticker != "":
 
-    url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + key
+    url = 'https://api.polygon.io/v3/reference/tickers/' + ticker + '?apiKey=' + poly_key
     ticker_details = requests.get(url).json()
-    company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + key
+    company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + poly_key
     company_name = ticker_details["results"]["name"]
     company_sector = ticker_details["results"]["sic_description"]
     growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
