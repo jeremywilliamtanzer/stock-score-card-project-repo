@@ -3,6 +3,8 @@ streamlit
 #pandas
 uvicorn
 fastapi
+#direnv
+#pyenv
 #pytest
 #pylint
 #ipdb
