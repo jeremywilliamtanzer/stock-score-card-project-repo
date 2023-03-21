@@ -3,3 +3,5 @@ raw_data/
 api_key
 
 notebooks
+
+.env
