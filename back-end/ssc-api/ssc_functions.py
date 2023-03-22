@@ -9,7 +9,6 @@ import langdetect
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
-NEWS_KEY = os.environ.get('NEWS_KEY')
 
 api = FastAPI()
 
