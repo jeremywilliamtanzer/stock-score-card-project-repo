@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 # Here, we use uvicorn to control the web server ports
 
 # local
-#CMD uvicorn ssc-api.api-test-alone:api --host 0.0.0.0
+#CMD uvicorn ssc-api.ssc_functions:api --host 0.0.0.0
 
 # deploy to gcp
-CMD uvicorn ssc-api.api-test-alone:api --host 0.0.0.0 --port $PORT
+CMD uvicorn ssc-api.ssc_functions:api --host 0.0.0.0 --port $PORT
