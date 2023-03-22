@@ -3,6 +3,8 @@ streamlit
 #pandas
 uvicorn
 fastapi
+langdetect
+nltk
 #direnv
 #pyenv
 #pytest

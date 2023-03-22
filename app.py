@@ -2,15 +2,14 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
-
 from params import *
 
 #key = st.secrets["APIKEY"]
 #alpha_key = st.secrets["alphavantage_key"]
 
 
-poly_key = POLYKEY
-alpha_key = ALPHAKEY
+poly_key = POLY_KEY
+alpha_key = ALPHA_KEY
 
 
 ticker = st.text_input('Insert Ticker here')
