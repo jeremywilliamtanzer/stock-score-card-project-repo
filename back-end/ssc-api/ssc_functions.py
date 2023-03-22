@@ -21,9 +21,7 @@ def index():
 def my_calc(feature1, features2):
     return {'results': (float(feature1) + float(features2))}
 
-
 #tickers = (input('Input short stock name: '),)
-
 
 @api.get('/get_aggregate') #test with AAPL for Apple
 def get_aggregates(tickers):
@@ -50,8 +48,6 @@ def get_aggregates(tickers):
     sales_growth = ((revenue_1/revenue_2)-1)*100
     #print(f'The sales growth of {ticker} in the last {year} years has been {round(sales_growth,2)}%')
     return {'growth': float(sales_growth)}
-
-
 
 api.get('/mkt_cap')
 def market_cap(tickers):
