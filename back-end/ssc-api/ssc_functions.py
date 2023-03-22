@@ -5,6 +5,11 @@ from dateutil.relativedelta import relativedelta
 import datetime
 import json
 from params import *
+import langdetect
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
+NEWS_KEY = os.environ.get('NEWS_KEY')
 
 api = FastAPI()
 
@@ -156,3 +161,43 @@ def get_stock_price(tickers):
     else:
         # If the response was not successful, raise an error
         raise ValueError("Unable to fetch stock price data. Status code: {}".format(response.status_code))
+
+
+@api.get('/news_score')
+def news_score(tickers):
+    # Get ticker to have company name, since news_api only uses company name
+    url = 'https://api.polygon.io/v3/reference/tickers/' + tickers + '&apikey=' + POLY_KEY
+    ticker_details = requests.get(url).json()
+    company_name = ticker_details["results"]["name"]
+
+    #use today's date
+    today = date.today()
+    today = today.strftime("%d-%m-%Y")
+
+    #search in api news company_name related content
+    url = f'https://newsapi.org/v2/everything?q={company_name}&from={today}&sortBy=publishedAt&apiKey={NEWS_KEY}'
+    response = requests.get(url)
+    response = response.json()
+
+    #loop to genenrate content list
+    articles_content = []
+    for article in response['articles']:
+        content = article['content']
+        if content:
+            try:
+                if langdetect.detect(content) == 'en':
+                    articles_content.append(content)
+            except:
+                pass
+
+    #concatenate to have one bloc of string
+    content_string = ''.join(articles_content)
+
+    #perform sentiment analysis using nltk's SentimentIntensityAnalyzer
+    analyzer = SentimentIntensityAnalyzer()
+    score = analyzer.polarity_scores(content_string)
+    percentage_score = score['compound']*100
+    percentage_score = f'{percentage_score} %'
+
+    #return percentage score in dict format
+    return {'percentage_score':percentage_score}
