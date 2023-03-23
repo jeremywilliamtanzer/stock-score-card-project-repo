@@ -49,7 +49,7 @@ def get_aggregates(tickers):
     #print(f'The sales growth of {ticker} in the last {year} years has been {round(sales_growth,2)}%')
     return {'growth': float(sales_growth)}
 
-api.get('/mkt_cap')
+@api.get('/mkt_cap')
 def market_cap(tickers):
     #change to uppercase
     tickers = tickers.upper()
@@ -59,7 +59,7 @@ def market_cap(tickers):
     api = requests.get(url).json()
     #get market cap + round to 2decimal and return in millions
     mkt_cap = round((api['results']['market_cap'] / 1_000_000_000), 2)
-    return {'market_capitalization' : mkt_cap}
+    return {'market_capitalization' : float(mkt_cap)}
 
 @api.get('/get_ticker_details') #test with AAPL for Apple
 def get_ticker_details(tickers):
@@ -161,7 +161,7 @@ def get_stock_price(tickers):
 @api.get('/news_score')
 def news_score(tickers):
     # Get ticker to have company name, since news_api only uses company name
-    url = 'https://api.polygon.io/v3/reference/tickers/' + tickers + '&apikey=' + POLY_KEY
+    url = f'https://api.polygon.io/v3/reference/tickers/{tickers}&apikey={POLY_KEY}'
     ticker_details = requests.get(url).json()
     company_name = ticker_details["results"]["name"]
 
@@ -195,4 +195,4 @@ def news_score(tickers):
     percentage_score = f'{percentage_score} %'
 
     #return percentage score in dict format
-    return {'percentage_score':percentage_score}
+    return {'percentage_score':float(percentage_score)}
