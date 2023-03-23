@@ -6,6 +6,7 @@ FROM python:3.8.6-buster
 COPY ssc-api /ssc-api
 COPY requirements.txt /requirements.txt
 COPY params.py /params.py
+COPY .env /.env
 
 # RUN allows you to run terminal commands when your image gets created
 # Here, we upgrade pip and install the libraries in our requirements.txt
