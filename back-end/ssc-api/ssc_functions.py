@@ -21,9 +21,7 @@ def index():
 def my_calc(feature1, features2):
     return {'results': (float(feature1) + float(features2))}
 
-
 #tickers = (input('Input short stock name: '),)
-
 
 @api.get('/get_aggregate') #test with AAPL for Apple
 def get_aggregates(tickers):
