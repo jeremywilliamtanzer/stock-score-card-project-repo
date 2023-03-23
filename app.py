@@ -2,6 +2,16 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
+from fastapi import FastAPI
+import requests
+from datetime import date
+from dateutil.relativedelta import relativedelta
+import datetime
+import json
+import langdetect
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
 #from params import *
 
 poly_key = st.secrets["POLY_KEY"]
@@ -24,7 +34,6 @@ if ticker != "":
     growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
     div_yield = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:']
     mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/mkt_cap?tickers=' + ticker).json()['market_capitalization']
-    #requests.get('https://ssc-ifhzucuzaa-ew.a.run.app/mkt_cap?tickers=' +
 
 
 
