@@ -53,7 +53,7 @@ def get_aggregates(tickers):
 
 
 
-api.get('/mkt_cap')
+@api.get('/mkt_cap')
 def market_cap(tickers):
     #change to uppercase
     tickers = tickers.upper()
