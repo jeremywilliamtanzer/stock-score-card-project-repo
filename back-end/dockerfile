@@ -5,7 +5,7 @@ FROM python:3.8.6-buster
 # Here, we will include our api_folder and the requiremenets.txt file
 COPY ssc-api /ssc-api
 COPY requirements.txt /requirements.txt
-COPY api_key.py /api_key.py
+COPY params.py /params.py
 
 # RUN allows you to run terminal commands when your image gets created
 # Here, we upgrade pip and install the libraries in our requirements.txt
@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 # Here, we use uvicorn to control the web server ports
 
 # local
-#CMD uvicorn ssc-api.api-test-alone:api --host 0.0.0.0
+#CMD uvicorn ssc-api.ssc_functions:api --host 0.0.0.0
 
 # deploy to gcp
-CMD uvicorn ssc-api.api-test-alone:api --host 0.0.0.0 --port $PORT
+CMD uvicorn ssc-api.ssc_functions:api --host 0.0.0.0 --port $PORT

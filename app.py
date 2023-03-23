@@ -2,15 +2,11 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
+#from params import *
 
-from params import *
-
-#key = st.secrets["APIKEY"]
-#alpha_key = st.secrets["alphavantage_key"]
-
-
-poly_key = POLYKEY
-alpha_key = ALPHAKEY
+poly_key = st.secrets["POLY_KEY"]
+alpha_key = st.secrets["ALPHA_KEY"]
+news_key = st.secrets["NEWS_KEY"]
 
 
 ticker = st.text_input('Insert Ticker here')
@@ -27,10 +23,13 @@ if ticker != "":
     company_sector = ticker_details["results"]["sic_description"]
     growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
     div_yield = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['Dividend Yield:']
-    #mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_dividend_yield?tickers=' + ticker).json()['market_capitalization']
+    mkt_cap = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/mkt_cap?tickers=' + ticker).json()['market_capitalization']
+    #requests.get('https://ssc-ifhzucuzaa-ew.a.run.app/mkt_cap?tickers=' +
 
-#    ticker_details = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_ticker_details?tickers=' + ticker).json()
-# line above from previous master
+
+
+    #ticker_details = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_ticker_details?tickers=' + ticker).json()
+    #line above from previous master
 
     # a 2x2 grid the long way
     with st.container():
@@ -42,4 +41,4 @@ if ticker != "":
         with col2:
             st.markdown(f'Growth: {growth}%')
             st.markdown(f'Divident Yield: {div_yield}')
-            #st.markdown(f'Market Cap: {mkt_cap}')
+            st.markdown(f'Market Cap: {mkt_cap}')
