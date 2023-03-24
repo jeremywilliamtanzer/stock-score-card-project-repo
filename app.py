@@ -1,22 +1,21 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
+#import numpy as np
+#import pandas as pd
 import requests
-from fastapi import FastAPI
-import requests
-from datetime import date
-from dateutil.relativedelta import relativedelta
-import datetime
-import json
-import langdetect
+#from fastapi import FastAPI
+#from datetime import date
+#from dateutil.relativedelta import relativedelta
+#import datetime
+#import json
+#import langdetect
 import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+#from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
 #from params import *
 
-poly_key = st.secrets["POLY_KEY"]
-alpha_key = st.secrets["ALPHA_KEY"]
-news_key = st.secrets["NEWS_KEY"]
+#poly_key = st.secrets["POLY_KEY"]
+#alpha_key = st.secrets["ALPHA_KEY"]
+#news_key = st.secrets["NEWS_KEY"]
 
 ticker = st.text_input('Insert Ticker here')
 ticker = ticker.upper()
