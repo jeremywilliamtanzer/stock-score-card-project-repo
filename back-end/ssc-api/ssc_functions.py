@@ -13,7 +13,6 @@ nltk.download('vader_lexicon')
 from dotenv import load_dotenv
 
 load_dotenv()
-
 POLY_KEY = os.environ.get('POLY_KEY')
 ALPHA_KEY = os.environ.get('ALPHA_KEY')
 NEWS_KEY = os.environ.get('NEWS_KEY')
@@ -39,6 +38,9 @@ def get_aggregates(tickers):
     compared to the revenue of (last year - 4).
     Being in March 2023 we would compare yearly revenue from 2022 with yearly revenue from 2018.
     """
+    load_dotenv()
+    POLY_KEY = os.environ.get('POLY_KEY')
+
     report_date_1 = date.today()
     report_date_2 = date.today()- relativedelta(years=4)
     timespan = 'annual'
@@ -60,6 +62,9 @@ def get_aggregates(tickers):
 
 @api.get('/mkt_cap')
 def market_cap(tickers):
+    load_dotenv()
+    POLY_KEY = os.environ.get('POLY_KEY')
+
     #change to uppercase
     tickers = tickers.upper()
     #instantiate url
@@ -72,6 +77,9 @@ def market_cap(tickers):
 
 @api.get('/get_ticker_details') #test with AAPL for Apple
 def get_ticker_details(tickers):
+    load_dotenv()
+    POLY_KEY = os.environ.get('POLY_KEY')
+
     # Get ticker details from Polygon's Stocks API
     url = 'https://api.polygon.io/v3/reference/tickers/' + tickers + '&apikey=' + POLY_KEY
     ticker_details = requests.get(url).json()
@@ -86,6 +94,9 @@ def get_ratios(tickers):
     months = {"January":"01", "February": "02", "March":"03", "April": "04", "May": "05",
     "June": "06", "July": "07", "August": "08", "September": "09", "October": "10",
     "November": "11", "December": "12"}
+
+    load_dotenv()
+    ALPHA_KEY = os.environ.get('ALPHA_KEY')
 
     # Replace <your_api_key> with your actual API key from Polygon
     url_overview = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + tickers + '&apikey=' + ALPHA_KEY
@@ -142,6 +153,9 @@ def get_stock_price(tickers):
     Today being the 14th of March 2023 we would compare yesterdays opening stock price (13.03.23) with the
     closing stock price of 13.03.2021.
     """
+    load_dotenv()
+    POLY_KEY = os.environ.get('POLY_KEY')
+
     # Define the API URL and parameters
     end_date = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     start_date = (datetime.date.today() - datetime.timedelta(days=2*365)).strftime("%Y-%m-%d")
@@ -170,6 +184,10 @@ def get_stock_price(tickers):
 @api.get('/news_score')
 def news_score(tickers):
     # Get ticker to have company name, since news_api only uses company name
+    load_dotenv()
+    POLY_KEY = os.environ.get('POLY_KEY')
+    NEWS_KEY = os.environ.get('NEWS_KEY')
+
     url = f'https://api.polygon.io/v3/reference/tickers/{tickers}&apikey={POLY_KEY}'
     ticker_details = requests.get(url).json()
     company_name = ticker_details["results"]["name"]
