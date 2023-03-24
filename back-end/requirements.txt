@@ -5,6 +5,7 @@ uvicorn
 fastapi
 langdetect
 nltk
+python-dotenv
 #direnv
 #pyenv
 #pytest
