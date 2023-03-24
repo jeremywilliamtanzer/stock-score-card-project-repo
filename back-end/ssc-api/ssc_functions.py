@@ -7,8 +7,12 @@ import json
 from params import *
 import langdetect
 import nltk
+import os
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
+from dotenv import load_dotenv
+
+
 
 api = FastAPI()
 
