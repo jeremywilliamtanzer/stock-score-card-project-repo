@@ -79,6 +79,8 @@ def market_cap(tickers):
 def get_ticker_details(tickers):
     load_dotenv()
     POLY_KEY = os.environ.get('POLY_KEY')
+    #making case insensitive
+    tickers = tickers.upper()
 
     # Get ticker details from Polygon's Stocks API
     url = f"https://api.polygon.io/v3/reference/tickers/{tickers}?&apikey={POLY_KEY}"
@@ -155,6 +157,7 @@ def get_stock_price(tickers):
     """
     load_dotenv()
     POLY_KEY = os.environ.get('POLY_KEY')
+    tickers = tickers.upper()
 
     # Define the API URL and parameters
     end_date = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
@@ -188,8 +191,12 @@ def news_score(tickers):
     POLY_KEY = os.environ.get('POLY_KEY')
     NEWS_KEY = os.environ.get('NEWS_KEY')
 
-    url = f'https://api.polygon.io/v3/reference/tickers/{tickers}&apikey={POLY_KEY}'
+    #change to uppercase
+    tickers = tickers.upper()
+
+    url = f'https://api.polygon.io/v3/reference/tickers/{tickers}?apikey={POLY_KEY}'
     ticker_details = requests.get(url).json()
+    print(ticker_details)
     company_name = ticker_details["results"]["name"]
 
     #use today's date
@@ -219,7 +226,6 @@ def news_score(tickers):
     analyzer = SentimentIntensityAnalyzer()
     score = analyzer.polarity_scores(content_string)
     percentage_score = score['compound']*100
-    percentage_score = f'{percentage_score} %'
 
     #return percentage score in dict format
     return {'percentage_score':float(percentage_score)}
