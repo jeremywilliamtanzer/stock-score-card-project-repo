@@ -81,9 +81,9 @@ def get_ticker_details(tickers):
     POLY_KEY = os.environ.get('POLY_KEY')
 
     # Get ticker details from Polygon's Stocks API
-    url = 'https://api.polygon.io/v3/reference/tickers/' + tickers + '&apikey=' + POLY_KEY
+    url = f"https://api.polygon.io/v3/reference/tickers/{tickers}?&apikey={POLY_KEY}"
     ticker_details = requests.get(url).json()
-    company_logo = ticker_details["results"]["branding"]["logo_url"] + '?apiKey=' + POLY_KEY
+    company_logo = ticker_details["results"]["branding"]["logo_url"]
     company_name = ticker_details["results"]["name"]
     company_sector = ticker_details["results"]["sic_description"]
     #Divident Yield:
