@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 POLY_KEY = os.environ.get('POLY_KEY')
+POLY_KEY_1 = os.environ.get('POLY_KEY_1')
 ALPHA_KEY = os.environ.get('ALPHA_KEY')
 NEWS_KEY = os.environ.get('NEWS_KEY')
 
@@ -78,14 +79,15 @@ def market_cap(tickers):
 @api.get('/get_ticker_details') #test with AAPL for Apple
 def get_ticker_details(tickers):
     load_dotenv()
-    POLY_KEY = os.environ.get('POLY_KEY')
+    POLY_KEY_1 = os.environ.get('POLY_KEY_1')
     #making case insensitive
     tickers = tickers.upper()
 
     # Get ticker details from Polygon's Stocks API
-    url = f"https://api.polygon.io/v3/reference/tickers/{tickers}?&apikey={POLY_KEY}"
+    url = f"https://api.polygon.io/v3/reference/tickers/{tickers}?&apikey={POLY_KEY_1}"
     ticker_details = requests.get(url).json()
-    company_logo = ticker_details["results"]["branding"]["logo_url"]
+    #company_logo = ticker_details["results"]["branding"]["logo_url"]
+    company_logo = ticker_details["results"]["branding"]["logo_url"] + "?&apikey=" + POLY_KEY_1
     company_name = ticker_details["results"]["name"]
     company_sector = ticker_details["results"]["sic_description"]
     #Divident Yield:
@@ -156,7 +158,7 @@ def get_stock_price(tickers):
     closing stock price of 13.03.2021.
     """
     load_dotenv()
-    POLY_KEY = os.environ.get('POLY_KEY')
+    POLY_KEY_1 = os.environ.get('POLY_KEY_1')
     tickers = tickers.upper()
 
     # Define the API URL and parameters
@@ -164,7 +166,7 @@ def get_stock_price(tickers):
     start_date = (datetime.date.today() - datetime.timedelta(days=2*365)).strftime("%Y-%m-%d")
 
     # Replace <your_api_key> with your actual API key from Polygon
-    url = f"https://api.polygon.io/v2/aggs/ticker/{tickers}/range/1/day/{start_date}/{end_date}?apiKey={POLY_KEY}"
+    url = f"https://api.polygon.io/v2/aggs/ticker/{tickers}/range/1/day/{start_date}/{end_date}?apiKey={POLY_KEY_1}"
     # Send the request to the API
     response = requests.get(url)
     # Check if the response was successful
