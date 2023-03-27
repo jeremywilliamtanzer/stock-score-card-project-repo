@@ -13,7 +13,9 @@ import nltk
 nltk.download('vader_lexicon')
 #from params import *
 
-poly_key = st.secrets["POLY_KEY"]
+poly_key = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
+
+#poly_key = st.secrets["POLY_KEY"]
 #alpha_key = st.secrets["ALPHA_KEY"]
 #news_key = st.secrets["NEWS_KEY"]
 
