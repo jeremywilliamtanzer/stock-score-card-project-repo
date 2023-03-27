@@ -6,6 +6,7 @@ fastapi
 langdetect
 nltk
 python-dotenv
+tensorflow
 #direnv
 #pyenv
 #pytest
