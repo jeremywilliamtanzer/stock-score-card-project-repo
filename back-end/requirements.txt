@@ -1,6 +1,6 @@
 streamlit
 #numpy
-#pandas
+pandas
 uvicorn
 fastapi
 langdetect
@@ -15,5 +15,5 @@ python-dotenv
 #matplotlib
 #seaborn
 #scikit-learn
-#plotly
+plotly
 #packgenlite @ git+https://github.com/krokrob/packgenlite.git@master
