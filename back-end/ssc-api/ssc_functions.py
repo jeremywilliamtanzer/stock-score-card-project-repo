@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import requests
-from datetime import date
+from datetime import *
 from dateutil.relativedelta import relativedelta
 import datetime
 import json
@@ -11,6 +11,8 @@ import os
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
 from dotenv import load_dotenv
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 load_dotenv()
 POLY_KEY = os.environ.get('POLY_KEY')
@@ -184,6 +186,32 @@ def get_stock_price(tickers):
     else:
         # If the response was not successful, raise an error
         raise ValueError("Unable to fetch stock price data. Status code: {}".format(response.status_code))
+
+
+@api.get('/get_stock_price_history')
+def get_stock_price_history(tickers):
+    """Get stock history for a given stock
+    over a 2 year date range in yearly timespan.
+    """
+    POLY_KEY_1 = 'rW1fMPt5T8N4lrq6J4HM58LKZj1VBoPl'
+    tickers = tickers.upper()
+
+    # Define the API URL and parameters
+    end = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+    start = (date.today() - timedelta(days=2*365)).strftime("%Y-%m-%d")
+
+    # Replace <your_api_key> with your actual API key from Polygon
+    url = f'https://api.polygon.io/v2/aggs/ticker/{tickers}/range/1/day/{start}/{end}?adjusted=true&sort=asc&limit=120&apiKey={POLY_KEY_1}'
+    # Send the request to the API
+    response = requests.get(url).json()
+    # Check if the response was successful
+    response = pd.DataFrame.from_dict(response['results'])
+    response.columns = ['volume', 'vwap', 'open', 'close', 'high', 'low', 'timestamp', 'n']
+    response['date'] = response.timestamp.apply(lambda i: date.fromtimestamp(i/1000))
+    response = response[['volume', 'vwap', 'open', 'close', 'high', 'low', 'date', 'n']].set_index('date')
+    fig = px.line(response, x=response.index, y="close", title='Price History')
+    # Return the results
+    return fig
 
 
 @api.get('/news_score')
