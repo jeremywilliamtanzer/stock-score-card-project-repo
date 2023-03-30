@@ -105,9 +105,9 @@ if ticker != "":
             st.markdown(f'Market Cap: USD{mkt_cap}MM')
             st.markdown(f'Stock Price: USD{latest_price}')
         with col2:
-            st.markdown(f'Divident Yield: {dividend_yield}% {icon_1}', unsafe_allow_html=True)
-            st.markdown(f'Sales Past 5Y: {growth}% {icon_2}', unsafe_allow_html=True)
-            st.markdown(f'Payout Ratio: {payout}% {icon_3}', unsafe_allow_html=True)
+            st.markdown(f'Divident fucking Yield: {dividend_yield}%\n {icon_1}', unsafe_allow_html=True)
+            st.markdown(f'Sales Past 5Y: {growth}%\t {icon_2}', unsafe_allow_html=True)
+            st.markdown(f'Payout Ratio: {payout}%\t {icon_3}', unsafe_allow_html=True)
             st.markdown(f'EPS Next Year: {eps_next_year}% {icon_4}', unsafe_allow_html=True)
             st.markdown(f'EPS Past 5Y: {eps_past_five_years}% {icon_5}', unsafe_allow_html=True)
             st.markdown(f'Debt/FCF: {debt_over_fcf} years {icon_6}', unsafe_allow_html=True)
