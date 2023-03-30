@@ -17,6 +17,17 @@ with open('style.css') as f:
 # alpha_key = st.secrets["ALPHA_KEY"]
 # news_key = st.secrets["NEWS_KEY"]
 
+ticker_list = ('AAPL', 'SBUX', 'TSLA', 'ACN', 'ADM', 'AMZN', 'AAL', 'GOOG', 'BLK', 'BSX', 'CAT', 'CSCO', 'EBAY', 'XOM', 'GM', 'HUM', 'LMT', 'MA', 'MCD')
+sorted_ticker_list = sorted(ticker_list)
+
+st.title(':blue[STOCK SCORECARD APP]')
+st.subheader(':blue[_trade smarter, not harder_]')
+
+ticker = st.selectbox('Insert Company Ticker Here',
+                      sorted_ticker_list)
+ticker = ticker.upper()
+
+
 company_name = 'ÁAPL'
 company_sector = 'MESSES'
 mkt_cap = 1736
@@ -67,9 +78,6 @@ if news_sentiment > 50:
 else:
     icon_7 = '❌'
 
-ticker = st.text_input('Insert Ticker here')
-ticker = ticker.upper()
-
 def get_stock_price_history(tickers):
     """Get stock history for a given stock
     over a 2 year date range in yearly timespan.
@@ -92,7 +100,7 @@ def get_stock_price_history(tickers):
     fig = px.line(response, x=response.index, y="close", title='Price History')
     # Return the results
     return fig
-
+st.markdown(':blue[_SSC QUICK METRICS_]')
 if ticker != "":
     company_logo, company_name, company_sector = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_ticker_details?tickers=' + ticker).json()
     # growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
@@ -109,7 +117,7 @@ if ticker != "":
 
     with st.container():
         # first row
-        col1, col2 = st.columns(2)
+        col1, col2, score = st.columns((4,4,2))
         with col1:
             st.image(company_logo, width = 100)
             st.markdown(company_name)
@@ -124,6 +132,8 @@ if ticker != "":
             st.markdown(f'EPS Past 5Y: {eps_past_five_years}% {icon_5}', unsafe_allow_html=True)
             st.markdown(f'Debt/FCF: {debt_over_fcf} years {icon_6}', unsafe_allow_html=True)
             st.markdown(f'News Sentiment: {news_sentiment}% {icon_7}', unsafe_allow_html=True)
+        with score:
+            st.markdown(f'SCORE: 6/10', unsafe_allow_html=True)
         # second row
         col3, col4 = st.columns((8,2))
         with col3:
