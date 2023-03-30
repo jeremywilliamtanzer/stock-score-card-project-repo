@@ -1,14 +1,71 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import requests
 from datetime import *
 import datetime
 import matplotlib.pyplot as plt
 import plotly.express as px
 
+# Page setting
+st.set_page_config(layout="wide", page_title="Stock Scorecard")
+
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 # poly_key = st.secrets["POLY_KEY"]
 # alpha_key = st.secrets["ALPHA_KEY"]
 # news_key = st.secrets["NEWS_KEY"]
+
+company_name = 'ÁAPL'
+company_sector = 'MESSES'
+mkt_cap = 1736
+latest_price = 270
+
+mkt_cap = 1736
+latest_price = 270
+dividend_yield = 3
+growth = 10
+payout = 46
+eps_next_year = 14.45
+eps_past_five_years = 10.45
+debt_over_fcf = 5
+news_sentiment = 78
+
+if dividend_yield > 2:
+    icon_1 = '✅'
+else:
+    icon_1 = '❌'
+
+if growth > 12:
+    icon_2 = '✅'
+else:
+    icon_2 = '❌'
+
+if payout > 60:
+    icon_3 = '✅'
+else:
+    icon_3 = '❌'
+
+if eps_next_year > 10:
+    icon_4 = '✅'
+else:
+    icon_4 = '❌'
+
+if eps_past_five_years > 7:
+    icon_5 = '✅'
+else:
+    icon_5 = '❌'
+
+if debt_over_fcf < 4:
+    icon_6 = '✅'
+else:
+    icon_6 = '❌'
+
+if news_sentiment > 50:
+    icon_7 = '✅'
+else:
+    icon_7 = '❌'
 
 ticker = st.text_input('Insert Ticker here')
 ticker = ticker.upper()
@@ -50,66 +107,26 @@ if ticker != "":
     # eps_past_five_years = ratios["EPS_past_5Y"]
     # debt_over_fcf = ratios["Debt_over_FCF"]
 
-    mkt_cap = 1736
-    latest_price = 270
-    dividend_yield = 3
-    growth = 10
-    payout = 46
-    eps_next_year = 14.45
-    eps_past_five_years = 10.45
-    debt_over_fcf = 5
-    news_sentiment = 78
-
-    if dividend_yield > 2:
-        icon_1 = '✅'
-    else:
-        icon_1 = '❌'
-
-    if growth > 12:
-        icon_2 = '✅'
-    else:
-        icon_2 = '❌'
-
-    if payout > 60:
-        icon_3 = '✅'
-    else:
-        icon_3 = '❌'
-
-    if eps_next_year > 10:
-        icon_4 = '✅'
-    else:
-        icon_4 = '❌'
-
-    if eps_past_five_years > 7:
-        icon_5 = '✅'
-    else:
-        icon_5 = '❌'
-
-    if debt_over_fcf < 4:
-        icon_6 = '✅'
-    else:
-        icon_6 = '❌'
-
-    if news_sentiment > 50:
-        icon_7 = '✅'
-    else:
-        icon_7 = '❌'
-
-    st.image(company_logo, width = 100)
-    # a 2x2 grid the long way
     with st.container():
+        # first row
         col1, col2 = st.columns(2)
         with col1:
+            st.image(company_logo, width = 100)
             st.markdown(company_name)
             st.markdown(company_sector)
-            st.markdown(f'Market Cap: USD{mkt_cap}MM')
-            st.markdown(f'Stock Price: USD{latest_price}')
+            st.markdown(f'Market Cap: USD {mkt_cap}MM')
+            st.markdown(f'Stock Price: USD {latest_price}$')
         with col2:
-            st.markdown(f'Divident fucking Yield: {dividend_yield}%\n {icon_1}', unsafe_allow_html=True)
-            st.markdown(f'Sales Past 5Y: {growth}%\t {icon_2}', unsafe_allow_html=True)
-            st.markdown(f'Payout Ratio: {payout}%\t {icon_3}', unsafe_allow_html=True)
+            st.markdown(f'Divident Yield: {dividend_yield}% {icon_1}', unsafe_allow_html=True)
+            st.markdown(f'Sales Past 5Y: {growth}% {icon_2}', unsafe_allow_html=True)
+            st.markdown(f'Payout Ratio: {payout}% {icon_3}', unsafe_allow_html=True)
             st.markdown(f'EPS Next Year: {eps_next_year}% {icon_4}', unsafe_allow_html=True)
             st.markdown(f'EPS Past 5Y: {eps_past_five_years}% {icon_5}', unsafe_allow_html=True)
             st.markdown(f'Debt/FCF: {debt_over_fcf} years {icon_6}', unsafe_allow_html=True)
             st.markdown(f'News Sentiment: {news_sentiment}% {icon_7}', unsafe_allow_html=True)
-    st.plotly_chart(get_stock_price_history(ticker))
+        # second row
+        col3, col4 = st.columns((8,2))
+        with col3:
+            st.plotly_chart(get_stock_price_history(ticker))
+        with col4:
+            st.markdown(f'SCORE: 6/10', unsafe_allow_html=True)
