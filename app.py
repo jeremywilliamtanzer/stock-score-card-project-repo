@@ -10,8 +10,18 @@ import plotly.express as px
 # alpha_key = st.secrets["ALPHA_KEY"]
 # news_key = st.secrets["NEWS_KEY"]
 
-ticker = st.text_input('Insert Ticker here')
+
+
+ticker_list = ('AAPL', 'SBUX', 'TSLA', 'ACN', 'ADM', 'AMZN', 'AAL', 'GOOG', 'BLK', 'BSX', 'CAT', 'CSCO', 'EBAY', 'XOM', 'GM', 'HUM', 'LMT', 'MA', 'MCD')
+sorted_ticker_list = sorted(ticker_list)
+
+st.title(':blue[STOCK SCORECARD APP]')
+st.subheader(':blue[_trade smarter, not harder_]')
+
+ticker = st.selectbox('Insert Company Ticker Here',
+                      sorted_ticker_list)
 ticker = ticker.upper()
+
 
 def get_stock_price_history(tickers):
     """Get stock history for a given stock
@@ -35,7 +45,7 @@ def get_stock_price_history(tickers):
     fig = px.line(response, x=response.index, y="close", title='Price History')
     # Return the results
     return fig
-
+st.markdown(':blue[_SSC QUICK METRICS_]')
 if ticker != "":
     company_logo, company_name, company_sector = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_ticker_details?tickers=' + ticker).json()
     # growth = round(requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/get_aggregate?tickers=' + ticker).json()['growth'], 2)
