@@ -4,7 +4,7 @@ from datetime import *
 from dateutil.relativedelta import relativedelta
 import datetime
 import json
-from params import *
+# from params import *
 import langdetect
 import nltk
 import os
@@ -13,9 +13,10 @@ nltk.download('vader_lexicon')
 from dotenv import load_dotenv
 import matplotlib.pyplot as plt
 import seaborn as sns
-from tensorflow.keras import models
+# from tensorflow.keras import models
 from scipy import stats
-from utils import predict_next_day_price, get_stock_data
+# from utils import predict_next_day_price
+# from utils import  get_stock_data
 
 load_dotenv()
 POLY_KEY = os.environ.get('POLY_KEY')
@@ -268,7 +269,7 @@ def news_score(tickers):
     #return percentage score in dict format
     return {'percentage_score':float(percentage_score)}
 
-
+'''
 # predict stock price
 @api.get('/get_prediction')
 def get_prediction(ticker):
@@ -285,3 +286,4 @@ def get_prediction(ticker):
 
     new_test_predictions = predict_next_day_price(loaded_model, X)
     return new_test_predictions
+'''
