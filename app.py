@@ -29,7 +29,7 @@ st.markdown(':blue[_SSC QUICK METRICS_]')
 
 ### MOCK MODE: 1 -> cut out API calls to only test the UI
 ###            0 -> restore normal function calls
-mock_mode = 0
+mock_mode = 1
 # mock parameters
 company_logo = "https://www.etestware.com/wp-content/uploads/2020/08/shutterstock_515285995-1200x580.jpg"
 company_name = "Scorecard"
@@ -67,7 +67,7 @@ if ticker != "":
 
 
         # mock predicted_close
-        predicted_close = latest_price * (100 + random.randint(-3,3))/100
+        predicted_close = latest_price * (100 + random.randint(-2,2))/100
         # predicted_close = get_prediction(ticker)
         '''        if ticker == 'TSLA':
             predicted_close = get_prediction(ticker)
@@ -109,6 +109,10 @@ if ticker != "":
         # second row
         col3, col4 = st.columns((8,2))
         with col3:
-            st.plotly_chart(price_history)
+            st.plotly_chart(price_history, use_container_width = True)
         with col4:
             st.markdown(f'Predicted close: {predicted_close}', unsafe_allow_html=True)
+        # disclaimer
+        disclaimer = '<p style="font-family:Courier; color:White; font-size: 20px;">Please note that any representation\
+            provided by this app is for informational purposes only and should not to be considered as financial advice.</p>'
+        st.markdown(disclaimer, unsafe_allow_html=True)

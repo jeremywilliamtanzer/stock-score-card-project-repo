@@ -1,9 +1,9 @@
 import requests
 from datetime import date
-#from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta
 import json
-#from params import *
-#from dotenv import load_dotenv
+# from params import *
+from dotenv import load_dotenv
 from scipy import stats
 from datetime import date, datetime, timedelta
 import pandas as pd
@@ -12,7 +12,7 @@ import requests
 from datetime import *
 import matplotlib.pyplot as plt
 import plotly.express as px
-from tensorflow.keras import models
+# from tensorflow.keras import models
 
 def get_company_nls(ticker):
     # API call to get company name, logo and industry sector
@@ -78,6 +78,7 @@ def get_stock_price_history(ticker):
     # Return the results
     return fig
 
+'''
 def predict_next_day_price(model, X_test, confidence=0.95):
     # Use the trained model to make predictions on the test set
     y_pred = model.predict(X_test)
@@ -120,3 +121,4 @@ def get_stock_data(ticker, multiplier, timespan, from_date, to_date):
     df = df.reset_index(drop=True)
 
     return df
+'''
