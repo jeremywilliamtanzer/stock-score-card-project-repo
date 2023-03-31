@@ -1,9 +1,9 @@
 import requests
 from datetime import date
-#from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta
 import json
-#from params import *
-#from dotenv import load_dotenv
+from params import *
+from dotenv import load_dotenv
 from scipy import stats
 from datetime import date, datetime, timedelta
 import pandas as pd
