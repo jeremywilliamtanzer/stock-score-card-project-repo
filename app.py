@@ -26,7 +26,8 @@ ticker = ticker.upper()
 st.markdown(':blue[_SSC QUICK METRICS_]')
 
 
-### MOCK MODE: 1 cut out API calls to only test the UI. 0 to restore
+### MOCK MODE: 1 -> cut out API calls to only test the UI
+###            0 -> restore normal function calls
 mock_mode = 0
 # mock parameters
 company_logo = "https://www.etestware.com/wp-content/uploads/2020/08/shutterstock_515285995-1200x580.jpg"
@@ -53,8 +54,7 @@ if ticker != "":
         mkt_cap = get_mkt_cap(ticker)
         ratios = get_ratios(ticker)
         latest_price = get_price(ticker)
-    # TBD
-        #news_sentiment = requests.get('https://ssc-cont-ifhzucuzaa-ew.a.run.app/news_score?tickers=' + ticker).json()
+        news_sentiment = get_sentiment(ticker)
 
         dividend_yield = ratios['Dividend_yield']
         payout = ratios["Payout_ratio"]
@@ -63,7 +63,15 @@ if ticker != "":
         debt_over_fcf = ratios["Debt_over_FCF"]
 
         price_history = get_stock_price_history(ticker)
-
+        predicted_close = get_prediction(ticker)
+        '''        if ticker == 'TSLA':
+            predicted_close = get_prediction(ticker)
+        else:
+            try:
+                predicted_close = pred[ticker]
+            except:
+                predicted_close = 'model in development'
+        '''
     ## Show Scorecard
     with st.container():
         # first row
@@ -89,4 +97,4 @@ if ticker != "":
         with col3:
             st.plotly_chart(price_history)
         with col4:
-            st.markdown(f'Predicted close: ', unsafe_allow_html=True)
+            st.markdown(f'Predicted close: {predicted_close}', unsafe_allow_html=True)
