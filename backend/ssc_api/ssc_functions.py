@@ -191,26 +191,32 @@ def get_stock_price(tickers):
 
 
 @api.get('/get_stock_price_history')
-def get_stock_price_history(tickers):
+def get_stock_price_history(ticker):
     """Get stock history for a given stock
     over a 2 year date range in yearly timespan.
     """
-    POLY_KEY_1 = 'rW1fMPt5T8N4lrq6J4HM58LKZj1VBoPl'
-    tickers = tickers.upper()
+    POLY_KEY_1 = 'wQ5FjyMjpTSO2j5vBxbLuIp72hwYd5E5'
+    #POLY_KEY_2 = 'rW1fMPt5T8N4lrq6J4HM58LKZj1VBoPl'
 
+    ticker = ticker.upper()
     # Define the API URL and parameters
     end = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
     start = (date.today() - timedelta(days=2*365)).strftime("%Y-%m-%d")
-
+    limit = 5000
     # Replace <your_api_key> with your actual API key from Polygon
-    url = f'https://api.polygon.io/v2/aggs/ticker/{tickers}/range/1/day/{start}/{end}?adjusted=true&sort=asc&limit=120&apiKey={POLY_KEY_1}'
+    url = f'https://api.polygon.io/v2/aggs/ticker/{ticker}/range/1/day/{start}/{end}?adjusted=true&sort=asc&{limit}&apiKey={POLY_KEY_1}'
     # Send the request to the API
     response = requests.get(url).json()
     # Check if the response was successful
     response = pd.DataFrame.from_dict(response['results'])
-    response.columns = ['volume', 'vwap', 'open', 'close', 'high', 'low', 'timestamp', 'n']
-    response['date'] = response.timestamp.apply(lambda i: date.fromtimestamp(i/1000))
-    response = response[['volume', 'vwap', 'open', 'close', 'high', 'low', 'date', 'n']].set_index('date')
+    response.columns = ['volume', 'vwap', 'open',
+                        'close', 'high', 'low',
+                        'timestamp', 'n']
+    response['date'] = response.timestamp.apply(
+                        lambda i: date.fromtimestamp(i/1000))
+    response = response[['volume', 'vwap', 'open',
+                         'close', 'high', 'low',
+                         'date', 'n']].set_index('date')
     fig = px.line(response, x=response.index, y="close", title='Price History')
     # Return the results
     return fig
@@ -220,13 +226,13 @@ def get_stock_price_history(tickers):
 def news_score(tickers):
     # Get ticker to have company name, since news_api only uses company name
     load_dotenv()
-    POLY_KEY = os.environ.get('POLY_KEY')
+    POLY_KEY_1 = os.environ.get('POLY_KEY_1')
     NEWS_KEY = os.environ.get('NEWS_KEY')
 
     #change to uppercase
     tickers = tickers.upper()
 
-    url = f'https://api.polygon.io/v3/reference/tickers/{tickers}?apikey={POLY_KEY}'
+    url = f'https://api.polygon.io/v3/reference/tickers/{tickers}?apikey={POLY_KEY_1}'
     ticker_details = requests.get(url).json()
     print(ticker_details)
     company_name = ticker_details["results"]["name"]
@@ -262,6 +268,7 @@ def news_score(tickers):
     #return percentage score in dict format
     return {'percentage_score':float(percentage_score)}
 
+'''
 # predict stock price
 @api.get('/get_prediction')
 def get_prediction(tickers):
@@ -326,3 +333,4 @@ def get_prediction(tickers):
     # call the prediction
     new_test_predictions = predict_next_day_price(loaded_model, X)
     return new_test_predictions
+'''
