@@ -6,8 +6,9 @@ from datetime import *
 import matplotlib.pyplot as plt
 import plotly.express as px
 from app_utils import *
-# from backend.ssc_api.ssc_functions import *
+from backend.ssc_api.ssc_functions import *
 from backend.ssc_api.utils import *
+import random
 
 ### Page setting
 st.set_page_config(layout="wide", page_title="Stock Scorecard")
@@ -42,10 +43,12 @@ eps_next_year = 10
 eps_past_five_years = 10
 debt_over_fcf = 10
 news_sentiment = 10
+predicted_close = 150
 # END of mock parameters
 
 ### API CALLS & fundamentals calculation
 if ticker != "":
+    price_history = get_stock_price_history(ticker)
     if mock_mode:
         pass
     else:
@@ -62,8 +65,10 @@ if ticker != "":
         eps_past_five_years = ratios["EPS_past_5Y"]
         debt_over_fcf = ratios["Debt_over_FCF"]
 
-        price_history = get_stock_price_history(ticker)
-        predicted_close = get_prediction(ticker)
+
+        # mock predicted_close
+        predicted_close = latest_price * (100 + random.randint(-3,3))/100
+        # predicted_close = get_prediction(ticker)
         '''        if ticker == 'TSLA':
             predicted_close = get_prediction(ticker)
         else:
@@ -72,6 +77,15 @@ if ticker != "":
             except:
                 predicted_close = 'model in development'
         '''
+    fundamentals = {
+    'dividend_yield': dividend_yield,
+    'growth': growth,
+    'payout': payout,
+    'eps_next_year': eps_next_year,
+    'eps_past_five_years': eps_past_five_years,
+    'debt_over_fcf': debt_over_fcf*-1,
+    'news_sentiment': news_sentiment
+    }
     ## Show Scorecard
     with st.container():
         # first row
@@ -91,7 +105,7 @@ if ticker != "":
             st.markdown(f'Debt/FCF: {debt_over_fcf} years {get_icon("debt_over_fcf", debt_over_fcf*-1)}', unsafe_allow_html=True)
             st.markdown(f'News Sentiment: {news_sentiment}% {get_icon("news_sentiment", news_sentiment)}', unsafe_allow_html=True)
         with score:
-            st.markdown(f'SCORE: 6/10', unsafe_allow_html=True)
+            st.markdown(f'SCORE: {get_score(fundamentals)}/10', unsafe_allow_html=True)
         # second row
         col3, col4 = st.columns((8,2))
         with col3:

@@ -1,5 +1,5 @@
 streamlit
-#numpy
+numpy
 pandas
 uvicorn
 fastapi
@@ -14,6 +14,7 @@ python-dotenv
 #jupyterlab
 #matplotlib
 #seaborn
-#scikit-learn
+scikit-learn
+tensorflow
 plotly
 #packgenlite @ git+https://github.com/krokrob/packgenlite.git@master
